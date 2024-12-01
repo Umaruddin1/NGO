@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate to the NGO</title>
+    <style>
+        /* Centering the whole body */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px; /* Limit the width of the donation form */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .payment-info {
+            margin-bottom: 20px;
+        }
+
+        .payment-info img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        form div {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"], input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Make a Donation</h1>
+        
+        <!-- Display messages if any are present -->
+        {% if feedback %}
+                {{ feedback }}
+        {% endif %}
+
+        <!-- Payment instructions -->
+        <div class="payment-info">
+            <h2>Payment Instructions</h2>
+            <p>You can scan the payment method below to make a donation:</p>
+
+            <!-- Payment Image (Replace 'SHAH_pay.png' with your image path) -->
+            <a href="https://imgbb.com/"><img src="https://i.ibb.co/hFk3W3f/pay.png" alt="Pay" width="300"></a>
+            
+            <p>Once you complete the payment, please upload the payment screenshot below.</p>
+        </div>
+        
+        <!-- Donation Form -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Username Field -->
+            <div>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required placeholder="Enter your username" />
+            </div>
+
+            <!-- Donation Amount Field -->
+            <div>
+                <label for="amount">Donation Amount</label>
+                <input type="number" name="amount" id="amount" step="0.01" required placeholder="Enter donation amount" />
+            </div>
+
+            <!-- Payment Screenshot Field -->
+            <div>
+                <label for="image">Upload Payment Screenshot</label>
+                <input type="file" name="image" id="image" accept="image/*" required />
+                <small>Upload a screenshot of the payment after completing the transaction.</small>
+            </div>
+            
+            <div>
+                <button type="submit">Donate</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
